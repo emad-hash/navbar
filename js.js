@@ -1,37 +1,23 @@
+ //Javacript for the scroll indicator bar
+    window.addEventListener("scroll", () => {
+      const indicatorBar = document.querySelector(".scroll-indicator-bar");
 
-const body = document.querySelector("body"),
-nav = document.querySelector("nav"),
-modeToggle = document.querySelector(".dark-light"),
-sidebarOpen = document.querySelector(".sidebarOpen"),
-siderbarClose = document.querySelector(".siderbarClose");
+      const pageScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollValue = (pageScroll / height) * 100;
 
-let getMode = localStorage.getItem("mode");
-    if(getMode && getMode === "dark-mode"){
-      body.classList.add("dark");
-    }
+      indicatorBar.style.width = scrollValue + "%";
+    });
 
-// js code to toggle dark and light mode
-modeToggle.addEventListener("click" , () =>{
-  modeToggle.classList.toggle("active");
-  body.classList.toggle("dark");
+    //Responsive navigation menu toggle
+    const menuBtn = document.querySelector(".nav-menu-btn");
+    const closeBtn = document.querySelector(".nav-close-btn");
+    const navigation = document.querySelector(".navigation");
 
-  // js code to keep user selected mode even page refresh or file reopen
-  if(!body.classList.contains("dark")){
-      localStorage.setItem("mode" , "light-mode");
-  }else{
-      localStorage.setItem("mode" , "dark-mode");
-  }
-});
+    menuBtn.addEventListener("click", () => {
+      navigation.classList.add("active");
+    });
 
-//   js code to toggle sidebar
-sidebarOpen.addEventListener("click" , () =>{
-nav.classList.add("active");
-});
-
-body.addEventListener("click" , e =>{
-let clickedElm = e.target;
-
-if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
-  nav.classList.remove("active");
-}
-});
+    closeBtn.addEventListener("click", () => {
+      navigation.classList.remove("active");
+    });
